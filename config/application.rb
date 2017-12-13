@@ -23,9 +23,9 @@ module Panoptes
     config.eager_load_paths += Dir[Rails.root.join('lib', '**/')]
 
     config.action_dispatch.perform_deep_munge = false
-    config.middleware.insert_before ActionDispatch::ParamsParser, "RejectPatchRequests"
+    config.middleware.insert_before ActionDispatch::Cookies, "RejectPatchRequests"
     config.action_controller.action_on_unpermitted_parameters = :raise
-    config.middleware.insert_before ActionDispatch::ParamsParser, "CatchApiJsonParseErrors"
+    config.middleware.insert_before ActionDispatch::Cookies, "CatchApiJsonParseErrors"
 
     config.active_record.schema_format = :sql
 

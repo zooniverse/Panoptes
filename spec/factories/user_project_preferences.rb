@@ -12,10 +12,10 @@ FactoryBot.define do
 
     factory :legacy_user_project_preference do
       activity_count nil
-      legacy_count '{"bars": 19, "candels": 10}'
+      legacy_count({"bars": 19, "candels": 10})
 
       factory :busted_legacy_user_project_preference do
-        legacy_count '{"":null, "radio":"4"}'
+        legacy_count({"":null, "radio":"4"})
       end
     end
   end
