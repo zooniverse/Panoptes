@@ -11,6 +11,15 @@ class UserProjectPreference < ActiveRecord::Base
     end
   end
 
+  def legacy_count=(val)
+    case val
+    when String
+      write_attribute(:legacy_count, JSON.parse(val))
+    else
+      write_attribute(:legacy_count, val)
+    end
+  end
+
   private
 
   def valid_legacy_count_values
