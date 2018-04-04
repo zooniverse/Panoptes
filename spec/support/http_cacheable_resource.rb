@@ -3,8 +3,8 @@ shared_examples "public resources http cache" do
     expect(response.status).to eq(200)
   end
 
-  it "should not have a default value" do
-    expect(response.headers.key?("Cache-Control")).to be_falsey
+  it "defaults to being private and uncached" do
+    expect(response.headers["Cache-Control"]).to eq("max-age=0, private, must-revalidate")
   end
 
   context "with the http cache query param setup" do
@@ -21,8 +21,8 @@ shared_examples "private resources http cache" do
     expect(response.status).to eq(200)
   end
 
-  it "should not have a default value" do
-    expect(response.headers["Cache-Control"]).to be_nil
+  it "defaults to being private and uncached" do
+    expect(response.headers["Cache-Control"]).to eq("max-age=0, private, must-revalidate")
   end
 
   context "with the http cache query param setup" do
@@ -32,8 +32,8 @@ shared_examples "private resources http cache" do
       expect(response.status).to eq(200)
     end
 
-    it "should not have a cache-control value" do
-      expect(response.headers["Cache-Control"]).to be_nil
+    it "is private and uncached" do
+      expect(response.headers["Cache-Control"]).to eq("max-age=0, private, must-revalidate")
     end
   end
 end
@@ -76,8 +76,8 @@ shared_examples "an indexable unauthenticated http cacheable response" do
       expect(response.status).to eq(200)
     end
 
-    it "should not have a default value" do
-      expect(response.headers["Cache-Control"]).to be_nil
+    it "defaults to being private and uncached" do
+      expect(response.headers["Cache-Control"]).to eq("max-age=0, private, must-revalidate")
     end
 
     context "with the http cache query param setup" do
