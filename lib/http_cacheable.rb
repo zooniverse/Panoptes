@@ -18,7 +18,7 @@ class HttpCacheable
     return unless cacheable?
 
     @resource_cache_directive ||=
-      "#{public_private_directive} max-age: #{max_age_directive}"
+      "#{public_private_directive}, max-age=#{max_age_directive}"
   end
 
   private

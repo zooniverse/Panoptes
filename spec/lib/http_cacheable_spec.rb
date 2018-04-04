@@ -85,7 +85,7 @@ describe HttpCacheable do
     context "with a cacheable resource" do
       [ Project, Subject, Workflow ].each do |resource_klass|
         let(:controlled_resources) { resource_klass.all }
-        let(:cache_directive) { "public max-age: 60" }
+        let(:cache_directive) { "public, max-age=60" }
 
         it "should response with the correct cache directive" do
           expect(http_cache.resource_cache_directive).to eq(cache_directive)

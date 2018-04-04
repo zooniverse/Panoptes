@@ -11,7 +11,7 @@ shared_examples "public resources http cache" do
     let(:cache_params) { { http_cache: "true" } }
 
     it "should set the cache-control value" do
-      expect(response.headers["Cache-Control"]).to eq("public max-age: 60")
+      expect(response.headers["Cache-Control"]).to eq("max-age=60, public")
     end
   end
 end
@@ -93,7 +93,7 @@ shared_examples "an indexable unauthenticated http cacheable response" do
       end
 
       it "should set the cache-control value" do
-        expect(response.headers["Cache-Control"]).to eq("public max-age: 60")
+        expect(response.headers["Cache-Control"]).to eq("max-age=60, public")
       end
     end
   end
