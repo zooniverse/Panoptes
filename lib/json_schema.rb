@@ -87,7 +87,7 @@ class JsonSchema
   end
 
   def validate!(json)
-    errors = JSON::Validator.fully_validate(@schema, json)
+    errors = JSON::Validator.fully_validate(@schema, json.to_h)
     unless errors.empty?
       raise ValidationError, format_errors_to_hash(errors)
     end
