@@ -43,6 +43,10 @@ module APIRequestHelpers
     request.env['HTTP_ACCEPT'] = "application/vnd.api+json; version=1"
   end
 
+  def set_content_type
+    request.env["CONTENT_TYPE"] = "application/json"
+  end
+
   def set_accept_language
     request.env['HTTP_ACCEPT_LANGUAGE'] = 'en, zh;q=0.9, zh-tw;q=0.8, fr-fr;q=0.6'
   end
@@ -84,6 +88,7 @@ module APIRequestHelpers
 
   def default_request(scopes: ["public"], user_id: nil)
     set_accept
+    set_content_type
     set_accept_language
     set_preconditions
     stub_content_filter
