@@ -94,9 +94,7 @@ module JsonApiController
   private
 
   def gen_etag(query)
-    etag = combine_etags(etag: query)
-    key = ActiveSupport::Cache.expand_cache_key(etag)
-    %("#{Digest::MD5.hexdigest(key)}")
+   # fresh_when(query, public: true)
   end
 
   def resource_scope(resources)
