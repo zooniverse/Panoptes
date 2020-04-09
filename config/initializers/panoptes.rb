@@ -12,4 +12,8 @@ module Panoptes
   def self.pg_statement_timeout
     ENV.fetch('PG_STATEMENT_TIMEOUT', 300000)
   end
+
+  def self.user_project_recents_limit
+    ENV.fetch('USER_PROJECT_RECENTS_LIMIT', 50)
+  end
 end

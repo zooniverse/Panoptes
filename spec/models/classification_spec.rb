@@ -206,4 +206,19 @@ describe Classification, :type => :model do
       expect(build(:classification).seen_before?).to be_falsey
     end
   end
+
+  describe '#destroy' do
+    let(:classification) { create(:classification_with_recents) }
+
+    it 'marks the linked recents for removal' do
+      expect {
+        classification.destroy
+      }.to change {
+        Recent.where(
+          classification_id: classification.id,
+          mark_remove: true
+        ).count
+      }.from(0).to(2)
+    end
+  end
 end

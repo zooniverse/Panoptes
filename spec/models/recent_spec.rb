@@ -53,6 +53,35 @@ RSpec.describe Recent, :type => :model do
     end
   end
 
+  describe ':first_older_than' do
+    let(:old_period) { 15.days }
+    let(:old_recent) do
+      create(:recent) do |r|
+        r.update_attribute(:created_at, Time.now.utc - old_period)
+      end
+    end
+    let(:create_attrs) do
+      {
+        classification: old_recent.classification,
+        subject: old_recent.subject
+      }
+    end
+    let(:new_recent) { create(:recent, create_attrs) }
+
+    it 'returns nothing if no recents to find' do
+      expect(described_class.first_older_than).to be_nil
+    end
+
+    # avoid factories taking seconds to setup, collapsing to one test
+    it 'finds the correct records based on default and supplied periods' do # rubocop:disable RSpec/MultipleExpectations
+      # ensure these are created in this order
+      old_recent
+      new_recent
+      expect(described_class.first_older_than.id).to eq(old_recent.id)
+      expect(described_class.first_older_than(0.days).id).to eq(new_recent.id)
+    end
+  end
+
   describe "ordered_locations" do
     it_behaves_like "it has ordered locations" do
       let(:resource) { create(:recent) }

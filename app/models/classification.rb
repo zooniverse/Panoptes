@@ -6,7 +6,7 @@ class Classification < ActiveRecord::Base
 
   has_one :export_row, class_name: "ClassificationExportRow"
 
-  has_many :recents, dependent: :destroy
+  has_many :recents, -> { where(mark_remove: false) }, inverse_of: :classification
 
   has_and_belongs_to_many :subjects,
     join_table: :classification_subjects,
@@ -29,6 +29,8 @@ class Classification < ActiveRecord::Base
     where("classifications.id > ?", last_id)
     .order("classifications.id")
   }
+
+  before_destroy :mark_recents_for_removal
 
   def self.joins_classification_subjects
     joins("INNER JOIN classification_subjects ON classifications.id = classification_subjects.classification_id")
@@ -93,5 +95,13 @@ class Classification < ActiveRecord::Base
 
   def validate_gold_standard
     ClassificationValidator.new(self).validate_gold_standard
+  end
+
+  # recents can be a large table, thus finding all for removal
+  # in the destroy transaction can be longer than the statement timeout
+  # instead mark them for removal and allow them to be cleaned up later
+  # i.e. mark and sweep
+  def mark_recents_for_removal
+    recents.update_all(mark_remove: true)
   end
 end

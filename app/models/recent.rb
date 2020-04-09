@@ -21,6 +21,14 @@ class Recent < ActiveRecord::Base
     end
   end
 
+  # find the first known recent older than 2 week (defaul)
+  def self.first_older_than(period=14.days)
+    where('created_at < ?', Time.now.utc - period)
+      .order(id: 'desc')
+      .limit(1)
+      .first
+  end
+
   private
 
   def copy_classification_fkeys
