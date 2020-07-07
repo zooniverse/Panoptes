@@ -21,6 +21,12 @@ group :focus do
   end
 end
 
+group :rails5 do
+  guard 'rspec', cmd: 'BUNDLE_GEMFILE=Gemfile.next bin/rspec --fail-fast', all_on_start: true, all_after_pass: false, notification: false do
+    default_watch_proc.call
+  end
+end
+
 guard 'rspec', cmd: "bin/rspec --fail-fast", all_on_start: true, all_after_pass: false, notification: false do
   default_watch_proc.call
 end

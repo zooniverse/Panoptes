@@ -1,17 +1,18 @@
 language: ruby
+os: linux
+dist: xenial
 branches:
   only:
     - master
 cache: bundler
-sudo: false
-bundler_args: --without development production
+bundler_args: --without development staging production
 addons:
   postgresql: "9.5"
 
 before_install:
   - mkdir -p tmp
   - find spec -maxdepth 1 -type d | grep spec/ > tmp/curr_spec_dirs.txt
-  - if grep -Fxvc -f spec/known_dirs.txt tmp/curr_spec_dirs.txt; then echo 'Detected unkown Spec directories, check the spec/known_dirs.txt!'; exit 1; fi
+  - if grep -Fxvc -f spec/known_dirs.txt tmp/curr_spec_dirs.txt; then echo 'Detected unknown Spec directories, check the spec/known_dirs.txt!'; exit 1; fi
   - 'echo ''gem: --no-ri --no-rdoc'' > ~/.gemrc'
   - gem uninstall -v '>= 2' -i $(rvm gemdir)@global -ax bundler || true
   - gem install bundler -v '< 2'
@@ -22,7 +23,7 @@ before_script: &before_script
   - bundle exec rake configure:local
   - echo Running script - bundle exec rspec $SPECS
 
-matrix:
+jobs:
   fast_finish: true
   allow_failures:
     - rvm: 2.6
@@ -48,5 +49,12 @@ matrix:
         - DATABASE_URL=postgresql://localhost/travis_ci_test?user=postgres
         - SPECS="spec/lib spec/workers spec/serializers spec/services spec/requests spec/middleware spec/mailers spec/policies"
     - rvm: 2.6
+      env:
+        - DATABASE_URL=postgresql://localhost/travis_ci_test?user=postgres
+      gemfile: Gemfile
+    - rvm: 2.6
+      env:
+        - DATABASE_URL=postgresql://localhost/travis_ci_test?user=postgres
+      gemfile: Gemfile.next
 
 script: "bundle exec rspec $SPECS"

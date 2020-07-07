@@ -1,0 +1,53 @@
+version: '3'
+services:
+  postgres:
+    image: postgres:9.5
+    environment:
+      - "POSTGRES_USER=panoptes"
+      - "POSTGRES_PASSWORD=panoptes"
+    ports:
+      - "5433:5432"
+
+  redis:
+    image: redis
+    command: redis-server --appendonly yes
+
+  panoptes:
+    image: panoptes:local
+    build:
+      context: .
+      dockerfile: Dockerfile.rails5
+    volumes:
+      - ./:/rails_app
+      - gem_cache:/usr/local/bundle
+    ports:
+      - "3000:3000"
+    environment:
+      - "RAILS_ENV=development"
+      - "DATABASE_URL=postgresql://panoptes:panoptes@pg"
+      - "REDIS_URL=redis://redis:6379/0"
+      - "DATABASE_CLEANER_ALLOW_REMOTE_DATABASE_URL=true"
+      - "DISABLE_SPRING=true"
+      - "RAILS_LOG_TO_STDOUT=true"
+    links:
+      - redis:redis
+      - postgres:pg
+
+  sidekiq:
+    image: panoptes:local
+    volumes:
+      - ./:/rails_app
+      - gem_cache:/usr/local/bundle
+    command: ["/rails_app/scripts/docker/start-sidekiq.sh"]
+    environment:
+      - "RAILS_ENV=development"
+      - "DATABASE_URL=postgresql://panoptes:panoptes@pg"
+      - "REDIS_URL=redis://redis:6379/0"
+      - "DISABLE_SPRING=true"
+      - "SIDEKIQ_VERBOSE=true"
+    links:
+      - redis:redis
+      - postgres:pg
+
+volumes:
+  gem_cache:

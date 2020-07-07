@@ -94,9 +94,14 @@ module JsonApiController
   private
 
   def gen_etag(query)
-    etag = combine_etags(etag: query)
+    etag = old_combine_etags(etag: query)
     key = ActiveSupport::Cache.expand_cache_key(etag)
     %("#{Digest::MD5.hexdigest(key)}")
+  end
+
+  def old_combine_etags(options)
+    etags = etaggers.map { |etagger| instance_exec(options, &etagger) }.compact
+    etags.unshift options[:etag]
   end
 
   def resource_scope(resources)

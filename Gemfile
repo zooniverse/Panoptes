@@ -1,3 +1,9 @@
+# frozen_string_literal: true
+
+def next?
+  File.basename(__FILE__) == 'Gemfile.next'
+end
+
 source 'https://rubygems.org'
 
 gem 'active_interaction', '~> 3.7.1'
@@ -38,7 +44,11 @@ gem 'pg_search'
 gem 'puma', '~> 4.3.5'
 gem 'pundit', '~> 2.1.0'
 gem 'rack-cors', '~> 1.0', require: 'rack/cors'
-gem 'rails', '~> 4.2.11'
+if next?
+  gem 'rails', '~> 5.0.0'
+else
+  gem 'rails', '~> 4.2.11' # rubocop:disable Bundler/DuplicatedGem
+end
 gem 'ranked-model', '~> 0.4.1'
 gem 'restpack_serializer', git: 'https://github.com/zooniverse/restpack_serializer.git', branch: 'panoptes-api-version', ref: 'cef0969cef'
 gem 'schema_plus_pg_indexes', '~> 0.1'
@@ -61,7 +71,7 @@ group :production, :staging do
 end
 
 group :development, :test do
-  gem "factory_bot_rails"
+  gem 'factory_bot_rails'
   gem 'pry-byebug'
   gem 'pry-rails'
   gem 'pry-stack_explorer'
@@ -71,6 +81,7 @@ group :development, :test do
   gem 'rubocop-rspec'
   gem 'spring'
   gem 'sprockets', '~>3.7'
+  gem 'ten_years_rails'
 end
 
 group :test do
@@ -78,6 +89,7 @@ group :test do
   gem 'guard-rspec', require: false
   gem 'hashdiff'
   gem 'mock_redis'
+  gem 'rails-controller-testing' if next?
   gem 'rspec'
   gem 'rspec-its'
   gem 'rspec-rails'
