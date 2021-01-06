@@ -20,7 +20,7 @@ module MediaStorage
       "https://#{path}"
     end
 
-    def encrypted_bucket?
+    def safe_for_private_upload?
       true
     end
   end

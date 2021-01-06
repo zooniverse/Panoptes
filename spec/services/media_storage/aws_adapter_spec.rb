@@ -164,18 +164,18 @@ RSpec.describe MediaStorage::AwsAdapter do
     end
   end
 
-  describe "#encrypted_bucket?" do
+  describe '#safe_for_private_upload?' do
     it "should raise an error if the bucket is not encrypted" do
       adapter.s3.client.stub_responses(
         :get_bucket_encryption,
         'ServerSideEncryptionConfigurationNotFoundError'
       )
-      expect(adapter.encrypted_bucket?).to eq(false)
+      expect(adapter.safe_for_private_upload?).to eq(false)
     end
 
     it "should not raise an error if the bucket is encrypted" do
       adapter.s3.client.stub_responses(:get_bucket_encryption)
-      expect(adapter.encrypted_bucket?).to eq(true)
+      expect(adapter.safe_for_private_upload?).to eq(true)
     end
   end
 

@@ -77,10 +77,11 @@ module MediaStorage
       client.delete_blob(container, path)
     end
 
-    def encrypted_bucket?
-      # encryption is automatically enabled for all azure storage accounts and
-      # cannot be disabled, so this is always true
-      true
+    def safe_for_private_upload?
+      # https://www.rubydoc.info/gems/azure-storage-blob/1.1.0/Azure/Storage/Blob/Container#get_container_acl-instance_method
+      container = client.get_container_acl('private')[0]
+      # nil public_access_level attribute means no public access
+      container.public_access_level.nil?
     end
 
     private

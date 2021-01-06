@@ -242,9 +242,17 @@ RSpec.describe MediaStorage::AzureAdapter do
     end
   end
 
-  describe '#encrypted_bucket?' do
-    it 'returns true' do
-      expect(adapter.encrypted_bucket?).to eq(true)
+  describe '#safe_for_private_upload?' do
+    it 'returns false if the container is not private' do
+      az_container = instance_double('Azure::Storage::Blob::Container::Container', public_access_level: 'blob')
+      allow(adapter.client).to receive(:get_container_acl).with('private').and_return([az_container, []])
+      expect(adapter.safe_for_private_upload?).to eq(false)
+    end
+
+    it 'returns true if container is private' do
+      az_container = instance_double('Azure::Storage::Blob::Container::Container', public_access_level: nil)
+      allow(adapter.client).to receive(:get_container_acl).with('private').and_return([az_container, []])
+      expect(adapter.safe_for_private_upload?).to eq(true)
     end
   end
 end

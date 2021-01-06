@@ -33,7 +33,7 @@ shared_examples "an email dump exporter" do
     expect(CsvDumps::DumpProcessor).to receive(:new)
                                          .with(an_instance_of(Formatter::Csv::UserEmail),
                                                an_instance_of(scope_class),
-                                               an_instance_of(CsvDumps::DirectToS3)).and_return(processor)
+                                               an_instance_of(CsvDumps::DirectToObjectStorage)).and_return(processor)
     expect(processor).to receive(:execute).once
   end
 end

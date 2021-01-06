@@ -24,7 +24,7 @@ module MediaStorage
       raise NotImplementedError
     end
 
-    def encrypted_bucket?
+    def safe_for_private_upload?
       raise NotImplementedError
     end
 
