@@ -125,7 +125,7 @@ GEM
       responders
       warden (~> 1.2.3)
     diff-lcs (1.3)
-    doorkeeper (4.4.1)
+    doorkeeper (5.0.3)
       railties (>= 4.2)
     doorkeeper-jwt (0.2.1)
       jwt (~> 1.5.2, >= 1.5.2)
@@ -225,7 +225,7 @@ GEM
       activesupport (>= 4.0)
       logstash-event (~> 1.2.0)
       request_store
-    loofah (2.5.0)
+    loofah (2.6.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     lumberjack (1.0.11)
@@ -247,7 +247,7 @@ GEM
     nenv (0.3.0)
     newrelic_rpm (6.11.0.365)
     nio4r (2.5.2)
-    nokogiri (1.10.9)
+    nokogiri (1.10.10)
       mini_portile2 (~> 2.4.0)
     notiffany (0.1.1)
       nenv (~> 0.1)
@@ -483,7 +483,7 @@ DEPENDENCIES
   database_cleaner (~> 1.8.5)
   deep_cloneable (~> 2.3.2)
   devise (~> 4.7)
-  doorkeeper (~> 4.4)
+  doorkeeper (~> 5.0)
   doorkeeper-jwt (~> 0.2.1)
   factory_bot_rails
   faraday (~> 0.15)
