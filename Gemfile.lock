@@ -33,8 +33,11 @@ GEM
       rails-html-sanitizer (~> 1.0, >= 1.0.3)
     active_interaction (3.7.1)
       activemodel (>= 4, < 7)
-    active_model_serializers (0.10.0.rc2)
-      activemodel (>= 4.0)
+    active_model_serializers (0.10.12)
+      actionpack (>= 4.1, < 6.2)
+      activemodel (>= 4.1, < 6.2)
+      case_transform (>= 0.2)
+      jsonapi-renderer (>= 0.1.1.beta1, < 0.3)
     active_record_union (1.3.0)
       activerecord (>= 4.0)
     activejob (4.2.11.3)
@@ -88,6 +91,8 @@ GEM
       debug_inspector (>= 0.0.1)
     builder (3.2.4)
     byebug (11.1.3)
+    case_transform (0.2)
+      activesupport
     celluloid (0.17.3)
       celluloid-essentials
       celluloid-extras
@@ -198,6 +203,7 @@ GEM
     json (2.3.0)
     json-schema (2.8.1)
       addressable (>= 2.4)
+    jsonapi-renderer (0.2.2)
     jwt (1.5.6)
     kaminari (1.2.1)
       activesupport (>= 4.1.0)
@@ -237,7 +243,7 @@ GEM
     mime-types-data (3.2020.0512)
     mini_mime (1.0.2)
     mini_portile2 (2.5.1)
-    minitest (5.14.3)
+    minitest (5.14.4)
     mock_redis (0.25.0)
     modware (0.1.3)
       key_struct (~> 0.4)
@@ -471,7 +477,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_interaction (~> 3.7.1)
-  active_model_serializers (= 0.10.0.rc2)
+  active_model_serializers (= 0.10.12)
   active_record_union (~> 1.3.0)
   activerecord-import (~> 1.0)
   aws-sdk (~> 2.10)
