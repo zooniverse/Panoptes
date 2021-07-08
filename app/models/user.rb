@@ -13,11 +13,9 @@ class User < ActiveRecord::Base
   attr_accessor :minor_age
 
   devise :database_authenticatable, :registerable,
-    :recoverable, :rememberable, :trackable, :validatable,
-    :omniauthable, omniauth_providers: [:facebook, :google_oauth2]
+    :recoverable, :rememberable, :trackable, :validatable
 
   has_many :classifications, dependent: :restrict_with_exception
-  has_many :authorizations, dependent: :destroy
   has_many :collection_preferences, class_name: "UserCollectionPreference", dependent: :destroy
   has_many :project_preferences, class_name: "UserProjectPreference", dependent: :destroy
   has_many :oauth_applications, class_name: "Doorkeeper::Application", as: :owner, dependent: :destroy
@@ -132,20 +130,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  def self.from_omniauth(auth_hash)
-    transaction do
-      auth = Authorization.from_omniauth(auth_hash)
-      auth.user ||= create! do |u|
-        u.email = auth_hash.info.email
-        u.display_name = auth_hash.info.name
-        u.login = uniqueify(:login, sanitize_login(u.display_name))
-        u.password = Devise.friendly_token[0,20]
-        u.build_identity_group
-        u.authorizations << auth
-      end
-    end
-  end
-
   def self.reflect_on_association(association_name)
     case association_name.to_sym
     when :projects, :collections
@@ -241,7 +225,7 @@ class User < ActiveRecord::Base
   end
 
   def email_required?
-    authorizations.blank? && !disabled?
+    !disabled?
   end
 
   def receives_email?

@@ -42,9 +42,6 @@ class SessionsController < Devise::SessionsController
 
   def login_options
     opts = { login: '/users/sign_in' }
-    Devise.omniauth_providers.each do |provider|
-      opts[provider] = "/users/auth/#{provider}"
-    end
     render status: 200, json: opts
   end
 

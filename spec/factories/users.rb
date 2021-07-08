@@ -87,22 +87,4 @@ FactoryBot.define do
       ouroboros_created { true }
     end
   end
-
-  factory :omniauth_user, class: :user do
-    sequence(:login) { |n| "new_user_#{n}" }
-    display_name{ login }
-    sequence(:email) {|n| "example#{n}@example.com"}
-    password { 'password' }
-    credited_name { 'Dr New User' }
-    activated_state { :active }
-    languages { ['en', 'es', 'fr-ca'] }
-
-    after(:build) do |u|
-      u.identity_group = build(:user_group, display_name: u.login)
-      u.identity_membership = build(:membership, user: u, user_group: u.identity_group, state: 0, identity: true, roles: ["group_admin"])
-      # ensure we link the identity group to the idenity membership build strategy
-      u.identity_group.identity_membership = u.identity_membership
-      create_list(:authorization, 1, user: u, provider: 'facebook', uid: '12345')
-    end
-  end
 end

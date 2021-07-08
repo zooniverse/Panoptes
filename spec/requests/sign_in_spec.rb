@@ -13,7 +13,7 @@ describe "user sign in sessions", type: :request do
 
         aggregate_failures "success" do
           expect(response.status).to eq(200)
-          expect(json_response).to include('login', 'facebook')
+          expect(json_response).to include('login')
         end
       end
 
