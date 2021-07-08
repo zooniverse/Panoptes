@@ -144,7 +144,7 @@ GEM
     faraday-panoptes (0.3.0)
       faraday (~> 0.9)
       faraday_middleware (~> 0.10)
-    faraday_middleware (0.13.1)
+    faraday_middleware (0.14.0)
       faraday (>= 0.7.4, < 1.0)
     ffi (1.15.1)
     flipper (0.17.2)
@@ -482,7 +482,7 @@ DEPENDENCIES
   factory_bot_rails
   faraday (~> 0.15)
   faraday-http-cache (~> 2.2)
-  faraday_middleware (~> 0.13)
+  faraday_middleware (~> 0.14)
   flipper
   flipper-active_record
   flipper-ui
