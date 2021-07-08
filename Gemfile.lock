@@ -406,7 +406,7 @@ GEM
       its-it (~> 1.2)
       schema_plus_core (~> 1.0)
       schema_plus_indexes (~> 0.1, >= 0.1.3)
-    scientist (1.4.0)
+    scientist (1.6.0)
     shellany (0.0.1)
     sidekiq (5.2.8)
       connection_pool (~> 2.2, >= 2.2.2)
@@ -525,7 +525,7 @@ DEPENDENCIES
   rubocop-rails
   rubocop-rspec
   schema_plus_pg_indexes (~> 0.1)
-  scientist (~> 1.4.0)
+  scientist (~> 1.6.0)
   sidekiq (~> 5.2.5)
   sidekiq-congestion (~> 0.1.0)
   sidekiq-unique-jobs
