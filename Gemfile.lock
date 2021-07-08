@@ -278,7 +278,7 @@ GEM
     parallel (1.20.1)
     parser (3.0.0.0)
       ast (~> 2.4.1)
-    pg (0.21.0)
+    pg (1.2.3)
     pg_search (2.3.0)
       activerecord (>= 4.2)
       activesupport (>= 4.2)
@@ -506,7 +506,7 @@ DEPENDENCIES
   omniauth-google-oauth2
   p3p (~> 2.0)
   panoptes-client
-  pg (~> 0.21)
+  pg (~> 1.2)
   pg_search
   pry-byebug
   pry-rails
