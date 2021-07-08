@@ -448,7 +448,7 @@ GEM
       hitimes
     tzinfo (1.2.9)
       thread_safe (~> 0.1)
-    uglifier (4.1.20)
+    uglifier (4.2.0)
       execjs (>= 0.3.0, < 3)
     unicode-display_width (1.7.0)
     versionist (2.0.1)
@@ -537,7 +537,7 @@ DEPENDENCIES
   stringex (~> 2.8)
   strong_migrations
   therubyracer (~> 0.12)
-  uglifier (~> 4.1)
+  uglifier (~> 4.2)
   versionist (~> 2.0)
   zoo_stream (~> 1.0.1)
 
