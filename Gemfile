@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'active_interaction', '~> 3.7.1'
+gem 'active_interaction', '~> 3.8.3'
 gem 'active_model_serializers', '0.10.0.rc2' # Event stream
 gem 'active_record_union', '~> 1.3.0'
 gem 'activerecord-import', '~> 1.0'
